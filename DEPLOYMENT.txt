@@ -1,0 +1,55 @@
+ROCK PAPER SCISSORS MINI APP - DEPLOYMENT INSTRUCTIONS
+========================================================
+
+IMPORTANT STEPS TO COMPLETE BEFORE DEPLOYMENT:
+
+1. UPDATE FARCASTER.JSON
+   - Open public/.well-known/farcaster.json
+   - Replace "https://your-domain.com" with your actual deployed domain
+   - Replace "0x" in baseBuilder.ownerAddress with your Base wallet address
+   - Update all image URLs (iconUrl, splashImageUrl, screenshotUrls, etc.) with actual hosted images
+
+2. GENERATE ACCOUNT ASSOCIATION
+   - Deploy your app to production first
+   - Go to https://www.base.dev/ (Base Build Account association tool)
+   - Enter your domain and follow instructions to generate accountAssociation credentials
+   - Update the accountAssociation fields in farcaster.json with the generated values
+
+3. UPDATE EMBED METADATA
+   - Open index.html
+   - Update the fc:miniapp meta tag with your actual domain and image URL
+
+4. UPDATE PAYMENT ADDRESS
+   - Open src/components/Game.jsx
+   - Find the handlePayment function
+   - Replace '0x0000000000000000000000000000000000000000' with your treasury wallet address
+
+5. BUILD FOR PRODUCTION
+   - Run: npm run build
+   - Deploy the 'dist' folder to your hosting service (Vercel, Netlify, etc.)
+
+6. TEST YOUR APP
+   - Use Base Build Preview tool: https://www.base.dev/preview
+   - Validate embeds and account association
+   - Test the launch functionality
+
+7. PUBLISH
+   - Create a post in the Base app with your app's URL
+   - Your mini app will be live!
+
+TECHNICAL SPECS:
+- Viewport: 424x695px (web)
+- Font: Lexend (already loaded from Google Fonts)
+- Entry Fee: 0.000001 Base ETH (1 Gwei)
+- Chain ID: 8453 (Base Mainnet)
+
+FILES CREATED:
+- index.html - Main HTML with Farcaster embed metadata
+- src/App.jsx - Main app component with SDK initialization
+- src/components/Game.jsx - Game logic and payment handling
+- src/components/Game.css - Game styling
+- public/.well-known/farcaster.json - Farcaster manifest
+- vite.config.js - Vite configuration
+- package.json - Dependencies
+
+CURRENT STATUS: ✅ Development server running at http://localhost:3000
