@@ -53,17 +53,39 @@ const Game = () => {
   const connectWallet = async () => {
     setIsConnecting(true)
     try {
+      // Check if SDK is ready
+      if (!sdk.wallet) {
+        throw new Error('Wallet SDK not available')
+      }
+      
       const provider = await sdk.wallet.getEthereumProvider()
+      
+      if (!provider) {
+        throw new Error('Ethereum provider not available')
+      }
+      
       const accounts = await provider.request({ method: 'eth_requestAccounts' })
+      
       if (accounts && accounts.length > 0) {
         setWalletAddress(accounts[0])
+      } else {
+        throw new Error('No accounts found')
       }
     } catch (error) {
       console.error('Wallet connection failed:', error)
-      alert('Failed to connect wallet. Please try again.')
+      const errorMessage = error.message || 'Failed to connect wallet'
+      alert(`Connection Error: ${errorMessage}. Make sure you're using this app within Farcaster.`)
     } finally {
       setIsConnecting(false)
     }
+  }
+
+  const disconnectWallet = () => {
+    setWalletAddress(null)
+    setGameState('initial')
+    setPlayerChoice(null)
+    setComputerChoice(null)
+    setResult(null)
   }
 
   const handlePayment = async () => {
@@ -184,9 +206,17 @@ const Game = () => {
             )}
             
             {walletAddress && (
-              <p className="wallet-address">
-                Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
-              </p>
+              <div className="wallet-info">
+                <p className="wallet-address">
+                  Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                </p>
+                <button 
+                  className="disconnect-button"
+                  onClick={disconnectWallet}
+                >
+                  🔌 Disconnect
+                </button>
+              </div>
             )}
           </div>
           
