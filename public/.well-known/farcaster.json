@@ -11,7 +11,7 @@
     "version": "1",
     "name": "Rock Paper Scissors",
     "homeUrl": "https://miniapp-virid-six.vercel.app",
-    "iconUrl": "https://miniapp-virid-six.vercel.app/icon.svg",
+    "iconUrl": "https://miniapp-virid-six.vercel.app/app-icon.png",
     "splashImageUrl": "https://miniapp-virid-six.vercel.app/preview.avif",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://miniapp-virid-six.vercel.app/api/webhook",
